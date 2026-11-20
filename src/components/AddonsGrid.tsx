@@ -3,8 +3,8 @@ import { ADDONS } from '../data/detailingData'
 export function AddonsGrid() {
   return (
     <div className="mt-14">
-      <h3 className="text-center text-xl font-bold uppercase tracking-wide text-brand-text">Add-Ons</h3>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <h3 id="addons-title" className="text-center text-xl font-bold uppercase tracking-wide text-brand-text">Add-Ons</h3>
+      <ul aria-labelledby="addons-title" className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ADDONS.map((addon) => (
           <li
             key={addon.name}

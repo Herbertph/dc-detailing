@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-brand-bg text-brand-text font-sans antialiased;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* Keep section headings clear of the sticky navbar. */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+  h1, h2, h3 {
+    @apply font-heading;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-primary ring-offset-2 ring-offset-brand-bg;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white transition hover:bg-brand-hover hover:shadow-[0_0_24px_rgba(220,38,38,0.45)] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand-text/70 px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-brand-text transition hover:border-brand-primary hover:text-white;
+  }
+  .eyebrow {
+    @apply font-heading text-sm font-bold uppercase tracking-wider text-red-500;
+  }
+  .section-title {
+    @apply mt-2 text-3xl font-extrabold leading-tight text-brand-text md:text-4xl;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}

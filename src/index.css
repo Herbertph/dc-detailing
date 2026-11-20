@@ -25,10 +25,10 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white transition hover:bg-brand-hover hover:shadow-[0_0_24px_rgba(220,38,38,0.45)] disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white transition shadow-[0_0_12px_rgba(220,38,38,0.25)] hover:bg-brand-hover hover:shadow-[0_0_24px_rgba(220,38,38,0.45)] focus-visible:shadow-[0_0_24px_rgba(220,38,38,0.45)] motion-safe:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand-text/70 px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-brand-text transition hover:border-brand-primary hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand-text/70 px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-brand-text transition hover:border-brand-primary hover:text-white motion-safe:active:scale-[0.98];
   }
   .eyebrow {
     @apply font-heading text-sm font-bold uppercase tracking-wider text-red-500;

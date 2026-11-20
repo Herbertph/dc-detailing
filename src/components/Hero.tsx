@@ -2,12 +2,12 @@ import { HERO } from '../data/detailingData'
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="overflow-hidden">
+    <section aria-labelledby="hero-title" className="overflow-hidden border-b border-brand-primary">
       <div className="mx-auto grid max-w-7xl items-center lg:grid-cols-[55fr_45fr]">
         <div className="px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
           <p className="eyebrow">{HERO.eyebrow}</p>
           <h1 id="hero-title" className="mt-4 font-extrabold leading-tight">
-            <span className="block text-4xl tracking-wide text-white sm:text-5xl lg:text-6xl">{HERO.titleLine1}</span>
+            <span className="block text-4xl uppercase tracking-wide text-slate-300 sm:text-5xl lg:text-6xl">{HERO.titleLine1}</span>
             <span className="mt-2 block text-2xl text-brand-text sm:text-3xl lg:text-4xl">{HERO.titleLine2}</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-brand-muted">{HERO.subheadline}</p>

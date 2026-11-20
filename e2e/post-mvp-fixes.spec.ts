@@ -1,5 +1,41 @@
 import { expect, test } from '@playwright/test'
-import { onlyMobile } from './helpers'
+import { onlyDesktop, onlyMobile } from './helpers'
+
+test('AC-1: the hero image reaches the right edge on viewports wider than 1280 px', async ({ page }) => {
+  onlyDesktop()
+  for (const width of [1400, 1920]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    const img = page.locator('section[aria-labelledby="hero-title"] img')
+    const rect = (await img.boundingBox())!
+    const client = await page.evaluate(() => document.documentElement.clientWidth)
+    expect(Math.abs(rect.x + rect.width - client)).toBeLessThanOrEqual(1)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(client)
+  }
+})
+
+test('AC-2: the hero layout at 1280 px and 375 px matches the MVP', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.goto('/')
+  const hero = page.locator('section[aria-labelledby="hero-title"]')
+  const client = await page.evaluate(() => document.documentElement.clientWidth)
+  const wide = (await hero.locator('img').boundingBox())!
+  // Two columns, about 55% text / 45% image, image ending at the page edge.
+  expect(wide.x / client).toBeGreaterThan(0.53)
+  expect(wide.x / client).toBeLessThan(0.57)
+  expect(Math.abs(wide.x + wide.width - client)).toBeLessThanOrEqual(1)
+
+  await page.setViewportSize({ width: 375, height: 740 })
+  await page.goto('/')
+  const narrowClient = await page.evaluate(() => document.documentElement.clientWidth)
+  const h1 = (await page.getByRole('heading', { level: 1 }).boundingBox())!
+  const stacked = (await hero.locator('img').boundingBox())!
+  // Image stacks below the text and spans the full width.
+  expect(stacked.y).toBeGreaterThan(h1.y + h1.height)
+  expect(stacked.x).toBeLessThanOrEqual(1)
+  expect(Math.abs(stacked.x + stacked.width - narrowClient)).toBeLessThanOrEqual(1)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(narrowClient)
+})
 
 test('AC-3: footer has only the Instagram and Google Business social links', async ({ page }) => {
   await page.goto('/')

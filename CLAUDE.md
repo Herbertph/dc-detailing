@@ -6,15 +6,34 @@ Built with a multi-agent pipeline: requirements analyst → developer → tester
 
 ## Stack
 
-To be defined by the first feature (MVP). The developer fills this in after scaffolding.
+- Vite + React 18 + TypeScript (strict), single static page.
+- Tailwind CSS 3.4 with `brand` color tokens (`tailwind.config.js`), fonts self-hosted via `@fontsource` (Barlow, Inter).
+- `lucide-react` icons, `framer-motion` reveal animations (off with `prefers-reduced-motion`).
+- Booking form: `react-hook-form` + `zod` + `@hookform/resolvers`.
+- Unit tests: Vitest + Testing Library (jsdom). E2E: Playwright (Chromium, `desktop` 1280 px and `mobile` 375 px projects) + `@axe-core/playwright`.
+- CI: `.github/workflows/ci.yml` (lint, unit, build, e2e) on pull requests and pushes to `main`.
 
 ## Commands
 
-To be defined by the first feature. List install, dev server, build, unit test and end-to-end test commands here.
+- `npm install` — install dependencies (`npx playwright install chromium` once for e2e).
+- `npm run dev` — dev server.
+- `npm run build` — type-check and production build to `dist/`.
+- `npm run preview` — serve the build.
+- `npm run lint` — ESLint.
+- `npm run test` — unit tests (Vitest).
+- `npm run test:e2e` — builds and serves on port **5179** (never 4545), then runs Playwright. The build uses `VITE_BOOKING_ENDPOINT=https://booking.test/submit`, which tests intercept with `page.route`.
+
+Environment: `VITE_BOOKING_ENDPOINT` (build time) is the Formspree-style URL that receives booking requests as JSON. When unset, the form runs in demo mode (nothing is sent, console warning). It must be set before going live.
 
 ## Structure
 
-To be defined by the first feature.
+- `src/App.tsx`: page composition; holds the selected vehicle size and the package pre-fill for the booking form.
+- `src/components/`: one component per section (`TopBar`, `Navbar`, `Hero`, `TrustBar`, `PackagesSection`, `PackageCard`, `AddonsGrid`, `GallerySection`, `BeforeAfterSlider`, `ServiceSplit`, `ReviewsSection`, `AboutSection`, `BookingForm`, `Footer`, `MobileCallFloat`) plus `Logo` and `Reveal`.
+- `src/data/detailingData.ts`: all business content and copy. Components never hard-code it.
+- `src/lib/`: pure, unit-tested logic (`pricing`, `gallery`, `slider`, `bookingSchema`, `bookingPayload`, `submitBooking`), tests next to each file (`*.test.ts`).
+- `public/images/`: WebP images (provisional placeholders, see `CREDITS.md`).
+- `index.html`: title, meta, Open Graph and JSON-LD.
+- `e2e/`: Playwright tests.
 
 - `docs/specs/`: feature specs written by the requirements analyst
 - `docs/test-cases/`: test cases (TC-n, with steps and expected results) written by the tester

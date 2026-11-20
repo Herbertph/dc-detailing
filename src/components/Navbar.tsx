@@ -7,6 +7,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
   const menuButton = useRef<HTMLButtonElement>(null)
   const closeButton = useRef<HTMLButtonElement>(null)
+  const drawer = useRef<HTMLDivElement>(null)
 
   const close = () => {
     setOpen(false)
@@ -20,6 +21,25 @@ export function Navbar() {
       if (e.key === 'Escape') {
         setOpen(false)
         menuButton.current?.focus()
+        return
+      }
+      if (e.key !== 'Tab' || !drawer.current) return
+      const items = Array.from(
+        drawer.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      )
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      const active = document.activeElement
+      if (!drawer.current.contains(active)) {
+        e.preventDefault()
+        first.focus()
+      } else if (e.shiftKey && active === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus()
       }
     }
     document.addEventListener('keydown', onKey)
@@ -62,6 +82,7 @@ export function Navbar() {
 
       {open && (
         <div
+          ref={drawer}
           id="mobile-menu"
           role="dialog"
           aria-modal="true"

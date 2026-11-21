@@ -108,6 +108,30 @@ test('AC-8: Tab and Shift+Tab cycle inside the mobile drawer', async ({ page }) 
   }
 })
 
+test('TC-12 (#7): the mobile drawer covers the viewport and keeps the CTA at the bottom', async ({ page }) => {
+  onlyMobile()
+  for (const size of [
+    { width: 375, height: 740 },
+    { width: 800, height: 900 },
+  ]) {
+    await page.setViewportSize(size)
+    await page.goto('/')
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    const drawer = page.getByRole('dialog', { name: 'Menu' })
+    const box = (await drawer.boundingBox())!
+    const viewport = await page.evaluate(() => ({
+      width: document.documentElement.clientWidth,
+      height: window.innerHeight,
+    }))
+    expect(box.y).toBeLessThanOrEqual(1)
+    expect(Math.abs(box.width - viewport.width)).toBeLessThanOrEqual(1)
+    expect(Math.abs(box.height - viewport.height)).toBeLessThanOrEqual(1)
+
+    const cta = (await drawer.getByRole('link', { name: 'BOOK AN APPOINTMENT' }).boundingBox())!
+    expect(cta.y + cta.height).toBeGreaterThan(viewport.height - 32)
+  }
+})
+
 test('AC-9: Escape closes the drawer and returns focus to the hamburger', async ({ page }) => {
   onlyMobile()
   await page.goto('/')

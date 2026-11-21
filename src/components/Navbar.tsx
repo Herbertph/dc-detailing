@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { NAV_LINKS } from '../data/detailingData'
 import { Logo } from './Logo'
 
@@ -80,15 +81,16 @@ export function Navbar() {
         </button>
       </nav>
 
-      {open && (
-        <div
-          ref={drawer}
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
-          className="fixed inset-0 z-50 flex flex-col bg-brand-topbar px-6 py-4 lg:hidden"
-        >
+      {open &&
+        createPortal(
+          <div
+            ref={drawer}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-brand-topbar px-6 py-4 lg:hidden"
+          >
           <div className="flex items-center justify-between">
             <Logo />
             <button
@@ -117,8 +119,9 @@ export function Navbar() {
           <a href="#booking" onClick={close} className="btn-primary mt-auto w-full">
             BOOK AN APPOINTMENT
           </a>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </header>
   )
 }

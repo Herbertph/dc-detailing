@@ -22,7 +22,8 @@ export const BUSINESS = {
 }
 
 // Google Business stays a Maps search until the real profile URL is provided.
-export const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps/search/?api=1&query=DC+Detailing+Services+Moncton'
+export const GOOGLE_REVIEWS_URL = 
+  'https://www.google.com/maps/place/DC+Detailing+Services/@46.1028102,-142.8663798,3z/data=!4m10!1m2!2m1!1sDC+Detailing+Services!3m6!1s0x4ca0b9a8c564c535:0xc19cbc18f7a46110!8m2!3d46.1028102!4d-64.8195048!15sChVEQyBEZXRhaWxpbmcgU2VydmljZXNaFyIVZGMgZGV0YWlsaW5nIHNlcnZpY2VzkgEVY2FyX2RldGFpbGluZ19zZXJ2aWNl4AEA!16s%2Fg%2F11y3z505nm'
 
 export const SOCIAL_LINKS = [
   { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/dc_detailling_/' },
@@ -45,7 +46,7 @@ export const HERO = {
     'From everyday hand washes to paint correction and ceramic coatings, we bring back that showroom shine. Fully mobile and shop-based services.',
   image: {
     src: '/images/hero-detailing.webp',
-    alt: 'Dark sports car being machine-polished in a detailing studio',
+    alt: 'Black car hood being machine-polished with a dual-action polisher in a detailing shop',
     width: 1200,
     height: 900,
   },
@@ -132,12 +133,12 @@ const galleryItem = (id: string, title: string, categories: GalleryCategory[]): 
 })
 
 export const GALLERY_ITEMS: GalleryItem[] = [
-  galleryItem('f150', '2022 Ford F-150 — Salt Stain Extraction & Interior Steam', ['interior']),
-  galleryItem('bmw-m3', 'BMW M3 — 1-Stage Polish & Ceramic Coating', ['paint', 'ceramic']),
-  galleryItem('crv', 'Honda CR-V — Pet Hair Removal & Full Detail', ['interior']),
-  galleryItem('porsche-911', 'Porsche 911 — Multi-Stage Paint Correction', ['paint']),
-  galleryItem('ram-1500', 'RAM 1500 — Complete Winter Prep & Shampoo', ['interior']),
-  galleryItem('audi-a4', 'Audi A4 — Leather Deep Clean & Conditioning', ['interior']),
+  galleryItem('luxury-suv', 'Luxury SUV — Salt Stain Extraction & Interior Steam', ['interior']),
+  galleryItem('mustang', 'Ford Mustang — 1-Stage Polish & Ceramic Coating', ['paint', 'ceramic']),
+  galleryItem('explorer', 'Ford Explorer — Pet Hair Removal & Full Detail', ['interior']),
+  galleryItem('audi-a6', 'Audi A6 — Multi-Stage Paint Correction', ['paint']),
+  galleryItem('focus-rs', 'Ford Focus RS — Complete Winter Prep & Shampoo', ['interior']),
+  galleryItem('c-class', 'Mercedes-Benz C-Class — Leather Deep Clean & Conditioning', ['interior']),
 ]
 
 export const SERVICE_SPLIT = [

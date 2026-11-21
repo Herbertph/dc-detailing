@@ -10,13 +10,13 @@ describe('filterGallery', () => {
   })
 
   it('AC-20: returns only items with the category', () => {
-    expect(ids('interior')).toEqual(['f150', 'crv', 'ram-1500', 'audi-a4'])
-    expect(ids('paint')).toEqual(['bmw-m3', 'porsche-911'])
-    expect(ids('ceramic')).toEqual(['bmw-m3'])
+    expect(ids('interior')).toEqual(['luxury-suv', 'explorer', 'focus-rs', 'c-class'])
+    expect(ids('paint')).toEqual(['mustang', 'audi-a6'])
+    expect(ids('ceramic')).toEqual(['mustang'])
   })
 
   it('AC-20: returns an empty list when no item has the category', () => {
-    const onlyInterior = GALLERY_ITEMS.filter((i) => i.id === 'f150')
+    const onlyInterior = GALLERY_ITEMS.filter((i) => i.id === 'luxury-suv')
     expect(filterGallery(onlyInterior, 'ceramic')).toEqual([])
   })
 })

@@ -21,8 +21,8 @@
 | AC-9 | TC-9 | Pass |
 | AC-10 | TC-10 | Pass |
 | FR-1 | TC-11 (exploratory) | Pass |
-| FR-4 / FR-5 | TC-12 (exploratory) | Fail (#7) |
-| FR-5 | TC-13 (exploratory) | Fail (#8) |
+| FR-4 / FR-5 | TC-12 (exploratory) | Pass (retest, #7) |
+| FR-5 | TC-13 (exploratory) | Pass (retest, #8) |
 
 ## Test cases
 
@@ -190,8 +190,8 @@
   2. Measure the `#mobile-menu` bounding box and compare it with the viewport.
   3. Repeat at 800 px.
 - **Expected result:** the dark drawer covers the whole viewport, the page behind it is hidden, and "BOOK AN APPOINTMENT" is at the bottom.
-- **Automated by:** not automated (visual/geometry check; the existing e2e tests only assert roles, focus and clicks)
-- **Status:** Fail (#7)
+- **Automated by:** `e2e/post-mvp-fixes.spec.ts` › `TC-12 (#7): the mobile drawer covers the viewport and keeps the CTA at the bottom`
+- **Status:** Pass (retest 2026-11-21, fixed in `7079f81`; #7 waits for merge to close)
 
 ### TC-13: resizing past 1024 px with the drawer open keeps keyboard navigation working
 - **Acceptance criterion:** FR-5, exploratory
@@ -204,8 +204,8 @@
   2. Resize the viewport to 1200 px.
   3. Press Tab several times; check `aria-expanded` on the hamburger.
 - **Expected result:** the drawer closes when the desktop layout takes over, or Tab keeps moving focus through the visible page.
-- **Automated by:** not automated (manual exploration)
-- **Status:** Fail (#8)
+- **Automated by:** `e2e/post-mvp-fixes.spec.ts` › `TC-13 (#8): growing past 1024 px closes the drawer and restores Tab`
+- **Status:** Pass (retest 2026-11-21, fixed in `83e0ead`; #8 waits for merge to close)
 
 ## Not covered
 
@@ -213,4 +213,4 @@
 - The live booking endpoint (out of scope for this round; the form stays in demo mode).
 - The GitHub Actions CI run (AC-10 is verified locally; base AC-41 still relies on CI).
 - The visual quality of the hero at widths between the tested breakpoints (only 1280, 1400 and 1920 px are measured).
-- The mobile drawer's visual geometry is not covered by any AC; it is reported as #7 in TC-12.
+- The mobile drawer's visual geometry at viewports other than 375 x 740 and 800 x 900 (TC-12 covers those two).

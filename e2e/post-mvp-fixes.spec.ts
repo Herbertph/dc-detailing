@@ -118,3 +118,21 @@ test('AC-9: Escape closes the drawer and returns focus to the hamburger', async 
   await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
   await expect(menu).toBeFocused()
 })
+
+test('TC-11 (FR-1): the hero text aligns with the page container on wide viewports', async ({ page }) => {
+  onlyDesktop()
+  for (const width of [1400, 1920]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    const { heroX, containerX } = await page.evaluate(() => {
+      const hero = document.querySelector('section[aria-labelledby="hero-title"] h1')!.getBoundingClientRect()
+      const container = document.querySelector('#packages .container-page')!
+      const style = getComputedStyle(container)
+      return {
+        heroX: hero.x,
+        containerX: container.getBoundingClientRect().x + Number.parseFloat(style.paddingLeft),
+      }
+    })
+    expect(Math.abs(heroX - containerX)).toBeLessThanOrEqual(1)
+  }
+})

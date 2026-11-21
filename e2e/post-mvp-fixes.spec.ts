@@ -132,6 +132,21 @@ test('TC-12 (#7): the mobile drawer covers the viewport and keeps the CTA at the
   }
 })
 
+test('TC-13 (#8): growing past 1024 px closes the drawer and restores Tab', async ({ page }) => {
+  onlyMobile()
+  await page.setViewportSize({ width: 375, height: 740 })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Open menu' }).click()
+  await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+
+  await page.setViewportSize({ width: 1200, height: 800 })
+  await expect(page.getByRole('dialog', { name: 'Menu' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Open menu', includeHidden: true })).toHaveAttribute('aria-expanded', 'false')
+
+  await page.keyboard.press('Tab')
+  expect(await page.evaluate(() => document.activeElement?.tagName)).not.toBe('BODY')
+})
+
 test('AC-9: Escape closes the drawer and returns focus to the hamburger', async ({ page }) => {
   onlyMobile()
   await page.goto('/')

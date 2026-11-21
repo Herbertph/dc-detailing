@@ -47,6 +47,15 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', onKey)
   }, [open])
 
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const onChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false)
+    }
+    desktop.addEventListener('change', onChange)
+    return () => desktop.removeEventListener('change', onChange)
+  }, [])
+
   return (
     <header className="sticky top-0 z-40 border-b border-brand-primary bg-brand-bg/90 backdrop-blur-md">
       <nav aria-label="Main" className="container-page flex h-16 items-center justify-between gap-6">

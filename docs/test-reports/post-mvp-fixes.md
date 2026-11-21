@@ -1,7 +1,7 @@
 # Test report: post-mvp-fixes
 
 - **Verdict:** **FAIL** — every acceptance criterion passes, but one major issue found in exploration is open: #7 (mobile drawer overlay).
-- **Branch / commit tested:** `feature/post-mvp-fixes` @ `bc7b330` (the only later changes are this report, the test cases and one added test)
+- **Branch / commit tested:** `feature/post-mvp-fixes` @ `e11f83c` (the only later changes are this report, the test cases and one added test)
 - **Spec:** `docs/specs/post-mvp-fixes.md` (base: `docs/specs/landing-page-mvp.md`)
 - **Test cases:** `docs/test-cases/post-mvp-fixes.md` (TC-1 to TC-10 for AC-1 to AC-10, TC-11 to TC-13 exploratory)
 - **Run date:** 2026-11-21

@@ -598,7 +598,7 @@ Spec: `docs/specs/landing-page-mvp.md`. Tested at commit `7bf65c7`.
   2. Inspect the hero.
 - **Expected result:** No horizontal scroll and hero visible at 800 px and 1400 px.
 - **Automated by:** `e2e/qa-exploratory.spec.ts` › `TC-42 (AC-40): no horizontal scrolling and hero visible at 800/1400 px`
-- **Status:** Pass (automated); visual inspection found a cosmetic gap at 1400 px, #1 (minor)
+- **Status:** Pass; the cosmetic gap at 1400 px was reported as #1 (minor) and is verified fixed on `feature/post-mvp-fixes` (`e11f83c`) — see TC-1 in `docs/test-cases/post-mvp-fixes.md`
 
 ### TC-43: Uppercased H1 keeps both lines of text and the hero has a 1 px red bottom border
 - **Acceptance criterion:** AC-7

@@ -68,7 +68,7 @@ No flaky tests seen (every test passed on the first run).
 
 ## Issues
 
-- #1 (minor): Hero image does not reach the right edge on viewports wider than 1280 px. Found while checking 1400 px by eye. Backlog.
+- #1 (minor): Hero image does not reach the right edge on viewports wider than 1280 px. Found while checking 1400 px by eye. Backlog. Verified fixed on `feature/post-mvp-fixes` (`e11f83c`, 2026-11-21) — see `docs/test-reports/post-mvp-fixes.md`.
 
 No critical or major issues open.
 

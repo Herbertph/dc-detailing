@@ -53,6 +53,7 @@ export function BookingForm({ prefill }: { prefill: BookingPrefill | null }) {
     handleSubmit,
     watch,
     setValue,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<BookingValues>({ resolver: zodResolver(schema), defaultValues: EMPTY_BOOKING })
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -64,7 +65,8 @@ export function BookingForm({ prefill }: { prefill: BookingPrefill | null }) {
     if (!prefill) return
     setValue('package', prefill.packageId, { shouldValidate: false })
     setValue('vehicleType', prefill.vehicleType, { shouldValidate: false })
-  }, [prefill, setValue])
+    clearErrors(['package', 'vehicleType'])
+  }, [prefill, setValue, clearErrors])
 
   useEffect(() => {
     if (status === 'success') successHeading.current?.focus()

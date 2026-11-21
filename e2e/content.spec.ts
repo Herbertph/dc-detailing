@@ -66,7 +66,7 @@ test('AC-34: footer links, phone, social links and copyright year', async ({ pag
   }
   await expect(footer.locator('a[href="tel:+15069406494"]')).toBeVisible()
   await expect(footer.getByText('Sun: Closed')).toBeVisible()
-  for (const name of ['Instagram', 'Facebook', 'Google Business']) {
+  for (const name of ['Instagram', 'Google Business']) {
     await expect(footer.getByRole('link', { name })).toHaveAttribute('target', '_blank')
   }
   const year = new Date().getFullYear()

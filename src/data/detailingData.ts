@@ -21,12 +21,11 @@ export const BUSINESS = {
   hoursClosed: 'Sun: Closed',
 }
 
-// Placeholders until the business provides its real profiles (spec Assumption 4).
+// Google Business stays a Maps search until the real profile URL is provided.
 export const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps/search/?api=1&query=DC+Detailing+Services+Moncton'
 
 export const SOCIAL_LINKS = [
-  { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/' },
-  { id: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/' },
+  { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/dc_detailling_/' },
   { id: 'google', label: 'Google Business', url: GOOGLE_REVIEWS_URL },
 ] as const
 

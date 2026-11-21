@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { NAV_LINKS } from '../data/detailingData'
 import { Logo } from './Logo'
 
@@ -7,6 +8,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
   const menuButton = useRef<HTMLButtonElement>(null)
   const closeButton = useRef<HTMLButtonElement>(null)
+  const drawer = useRef<HTMLDivElement>(null)
 
   const close = () => {
     setOpen(false)
@@ -20,11 +22,39 @@ export function Navbar() {
       if (e.key === 'Escape') {
         setOpen(false)
         menuButton.current?.focus()
+        return
+      }
+      if (e.key !== 'Tab' || !drawer.current) return
+      const items = Array.from(
+        drawer.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      )
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      const active = document.activeElement
+      if (!drawer.current.contains(active)) {
+        e.preventDefault()
+        first.focus()
+      } else if (e.shiftKey && active === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus()
       }
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [open])
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const onChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false)
+    }
+    desktop.addEventListener('change', onChange)
+    return () => desktop.removeEventListener('change', onChange)
+  }, [])
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-primary bg-brand-bg/90 backdrop-blur-md">
@@ -60,14 +90,16 @@ export function Navbar() {
         </button>
       </nav>
 
-      {open && (
-        <div
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
-          className="fixed inset-0 z-50 flex flex-col bg-brand-topbar px-6 py-4 lg:hidden"
-        >
+      {open &&
+        createPortal(
+          <div
+            ref={drawer}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-brand-topbar px-6 py-4 lg:hidden"
+          >
           <div className="flex items-center justify-between">
             <Logo />
             <button
@@ -96,8 +128,9 @@ export function Navbar() {
           <a href="#booking" onClick={close} className="btn-primary mt-auto w-full">
             BOOK AN APPOINTMENT
           </a>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </header>
   )
 }

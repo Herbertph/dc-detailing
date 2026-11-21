@@ -47,20 +47,20 @@ export function dateError(value: string, today: string): string | null {
 }
 
 const trimmedLength = (min: number, max: number, message: string) =>
-  z.string().trim().min(min, message).max(max, message)
+  z.string().trim().min(min, { error: message }).max(max, { error: message })
 
 const oneOf = (values: string[], message: string) =>
-  z.string().refine((v) => values.includes(v), message)
+  z.string().refine((v) => values.includes(v), { error: message })
 
 export function makeBookingSchema(today: string) {
   return z
     .object({
       fullName: trimmedLength(2, 80, MESSAGES.nameLength),
-      phone: z.string().refine(isValidPhone, MESSAGES.phone),
+      phone: z.string().refine(isValidPhone, { error: MESSAGES.phone }),
       email: z
         .string()
         .trim()
-        .refine((v) => v === '' || z.string().email().safeParse(v).success, MESSAGES.email),
+        .refine((v) => v === '' || z.email().safeParse(v).success, { error: MESSAGES.email }),
       vehicleType: oneOf(['sedan', 'suv', 'truck'], MESSAGES.vehicleType),
       vehicle: trimmedLength(2, 100, MESSAGES.vehicle),
       package: oneOf(['express', 'full-detail', 'ceramic', 'custom'], MESSAGES.package),
@@ -68,14 +68,14 @@ export function makeBookingSchema(today: string) {
       address: z.string().trim(),
       date: z.string(),
       timeWindow: oneOf(['morning', 'afternoon'], MESSAGES.timeWindow),
-      notes: z.string().max(1000, MESSAGES.notes),
+      notes: z.string().max(1000, { error: MESSAGES.notes }),
     })
     .superRefine((data, ctx) => {
       if (data.location === 'mobile' && (data.address.length < 5 || data.address.length > 150)) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['address'], message: MESSAGES.address })
+        ctx.addIssue({ code: 'custom', path: ['address'], message: MESSAGES.address })
       }
       const error = dateError(data.date, today)
-      if (error) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['date'], message: error })
+      if (error) ctx.addIssue({ code: 'custom', path: ['date'], message: error })
     })
 }
 

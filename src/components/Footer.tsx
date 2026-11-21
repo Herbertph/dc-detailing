@@ -17,7 +17,6 @@ const SOCIAL_ICONS: Record<(typeof SOCIAL_LINKS)[number]['id'], ReactNode> = {
       <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
     </>,
   ),
-  facebook: svg(<path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h2z" />),
   google: <Globe aria-hidden="true" className="h-5 w-5" />,
 }
 
